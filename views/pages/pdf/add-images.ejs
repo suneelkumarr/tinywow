@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> -->
+    <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" src="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #FC6E74;
+        }
+
+        .drag-image {
+            border: 1px dashed #fff;
+            height: 300px;
+            width: 350px;
+            border-radius: 5px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .drag-image.active {
+            border: 2px solid #fff;
+        }
+
+        .drag-image .icon {
+            font-size: 30px;
+            color: #fff;
+        }
+
+        .drag-image h6 {
+            font-size: 20px;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .drag-image span {
+            font-size: 14px;
+            font-weight: 300;
+            color: #fff;
+            margin: 10px 0 15px 0;
+        }
+
+        .drag-image button {
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: 300;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        .drag-image button:hover {
+            background-color: #fff;
+            color: red;
+        }
+
+        .drag-image img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+
+    <!-- <script>
+        const dropArea = document.querySelector(".drag-image")
+        const dragText = dropArea.querySelector("h6"),
+            button = dropArea.querySelector("button"),
+            input = dropArea.querySelector("input");
+        let file;
+
+
+        button.onclick = () => {
+            input.click();
+        }
+
+        input.addEventListener("change", function () {
+
+            file = this.files[0];
+            dropArea.classList.add("active");
+            viewfile();
+        });
+
+        dropArea.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            dropArea.classList.add("active");
+            dragText.textContent = "Release to Upload File";
+        });
+
+
+        dropArea.addEventListener("dragleave", () => {
+            dropArea.classList.remove("active");
+            dragText.textContent = "Drag & Drop to Upload File";
+        });
+
+        dropArea.addEventListener("drop", (event) => {
+            event.preventDefault();
+
+            file = event.dataTransfer.files[0];
+            viewfile();
+        });
+
+        function viewfile() {
+            let fileType = file.type;
+            let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+            if (validExtensions.includes(fileType)) {
+                let fileReader = new FileReader();
+                fileReader.onload = () => {
+                    let fileURL = fileReader.result;
+                    let imgTag = `<img src="${fileURL}" alt="image">`;
+                    dropArea.innerHTML = imgTag;
+                }
+                fileReader.readAsDataURL(file);
+            } else {
+                alert("This is not an Image File!");
+                dropArea.classList.remove("active");
+                dragText.textContent = "Drag & Drop to Upload File";
+            }
+        }
+    </script> -->
+
+    <script>
+        var fileUploader = document.getElementById("fileUploader");
+        fileUploader.addEventListener('change', handleFileUpload, false);
+
+
+        function handleFileUpload(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                localStorage.setItem("content", e.target.result);
+            };
+
+            reader.readAsText(file, 'base64');
+        }
+    </script>
+</head>
+
+<body>
+    <!-- <h1>Image to PDF</h1> -->
+
+    <!-- <div class="drag-image">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <h6>Drag & Drop File Here</h6>
+        <span>OR</span>
+        <button>Browse File</button>
+        <input type="file" hidden>
+    </div> -->
+    <input type="file" id="fileUploader" name="avatar" accept="pdf">
+</body>
+
+</html>
